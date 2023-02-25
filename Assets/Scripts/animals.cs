@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
 public class animals : MonoBehaviour
 {
@@ -10,11 +11,11 @@ public class animals : MonoBehaviour
     Vector3 targetPosition;
     Vector3 towardsTarget;
 
-    float wanderRadius = 5f;
+    float wanderRadius = 10f;
 
     void RecalculateTargetPosition(){
-        targetPosition = transform.position + Random.insideUnitSphere * wanderRadius;
-        targetPosition.y = 0;
+        targetPosition = transform.position + RandomPointInBounds() * wanderRadius;
+         
     }
     // Start is called before the first frame update
     void Start()
@@ -34,5 +35,13 @@ public class animals : MonoBehaviour
         transform.position += transform.forward * movementSpeed * Time.deltaTime;
         
         Debug.DrawLine(transform.position, targetPosition, Color.green );
+    }
+
+    public Vector3 RandomPointInBounds() {
+        Random rnd = new Random();
+        int x = rnd.Next(-32, -6);
+        int y = rnd.Next(158, 165);
+        int z = rnd.Next(-38, 2);
+        return new Vector3(x, y, z);
     }
 }
