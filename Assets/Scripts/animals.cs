@@ -2,46 +2,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = System.Random;
-
-public class animals : MonoBehaviour
+using System.Timers;
+public class animals : MovingEntity
 {
-    public float movementSpeed = 1f;
-    public float rotationSpeed = 1f;
-
-    Vector3 targetPosition;
-    Vector3 towardsTarget;
-
-    float wanderRadius = 10f;
-
+    public Vector3 targetPosition;
+    public Vector3 towardsTarget;
+    float wanderRadius = 2f;
+    
     void RecalculateTargetPosition(){
-        targetPosition = transform.position + RandomPointInBounds() * wanderRadius;
-         
+        targetPosition = transform.position + RandomPointInBounds()*wanderRadius;
     }
-    // Start is called before the first frame update
+
     void Start()
     {
         RecalculateTargetPosition();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        //var timer = new Timer(5000);
         towardsTarget = targetPosition - transform.position;
-        if(towardsTarget.magnitude < 0.25f)
-            RecalculateTargetPosition ();
-        
-        Quaternion towardsTargetRotation = Quaternion.LookRotation(towardsTarget, Vector3.up);
-        transform.rotation = Quaternion.Lerp(transform.rotation, towardsTargetRotation, rotationSpeed * Time.deltaTime);
-        transform.position += transform.forward * movementSpeed * Time.deltaTime;
+        MoveTowards(towardsTarget.normalized);
+        if (towardsTarget.y < 330 && towardsTarget.y > 328)
+            if (towardsTarget.x < -76 && towardsTarget.x > -92)
+                if (towardsTarget.z < -64 && towardsTarget.z > -50) 
+                        //timer.Interval = 5000;
+                        RecalculateTargetPosition();
+                        //timer.Start();
         
         Debug.DrawLine(transform.position, targetPosition, Color.green );
     }
 
     public Vector3 RandomPointInBounds() {
         Random rnd = new Random();
-        int x = rnd.Next(-32, -6);
-        int y = rnd.Next(158, 165);
-        int z = rnd.Next(-38, 2);
+        // int x = rnd.Next(-92, -76);
+        // int y = rnd.Next(328, 330);
+        // int z = rnd.Next(-64,-50);
+        int x = rnd.Next(-34, -30);
+        int y = rnd.Next(0, 1);
+        int z = rnd.Next(-10,-10);
+        Debug.Log("x"+x);
+        Debug.Log("y"+y);
+        Debug.Log("z"+z);
         return new Vector3(x, y, z);
     }
 }
