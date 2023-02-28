@@ -46,9 +46,9 @@ public class animals : MovingEntity
         // int x = rnd.Next(-92, -76);
         // int y = rnd.Next(328, 330);
         // int z = rnd.Next(-64,-50);
-        int x = rnd.Next(1, 5);
-        int y = rnd.Next(1, 5);
-        int z = rnd.Next(1, 5);
+        int x = rnd.Next(-2, 5);
+        int y = rnd.Next(-1, 2);
+        int z = rnd.Next(-2, 5);
         // Debug.Log("x"+x);
         // Debug.Log("y"+y);
         // Debug.Log("z"+z);
